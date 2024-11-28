@@ -1,6 +1,7 @@
 package com.tsc.msscbeerclient.web.client;
 
 import com.tsc.msscbeerclient.web.model.BeerDto;
+import com.tsc.msscbeerclient.web.model.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.ConstructorBinding;
@@ -16,6 +17,8 @@ import java.util.UUID;
 public class BreweryClient {
 
     private String BEER_PATH_V1 = "/api/v1/beer";
+
+    private String CUSTOMER_PATH_V1 = "/api/v1/customer";
 
     private String apihost;
 
@@ -44,5 +47,21 @@ public class BreweryClient {
 
     public void deleteBeer(UUID uuid) {
         restTemplate.delete(apihost + BEER_PATH_V1 + "/" + uuid.toString());
+    }
+
+    public CustomerDto getCustomerById(UUID uuid) {
+        return restTemplate.getForObject(apihost + CUSTOMER_PATH_V1 + "/" + uuid.toString(), CustomerDto.class);
+    }
+
+    public URI saveNewCustomer(CustomerDto beerDto) {
+        return restTemplate.postForLocation(apihost + CUSTOMER_PATH_V1, beerDto);
+    }
+
+    public void updateCustomer(UUID uuid, CustomerDto customerDto) {
+        restTemplate.put(apihost + CUSTOMER_PATH_V1 + "/" + uuid.toString(), customerDto);
+    }
+
+    public void deleteCustomer(UUID uuid) {
+        restTemplate.delete(apihost + CUSTOMER_PATH_V1 + "/" + uuid.toString());
     }
 }
