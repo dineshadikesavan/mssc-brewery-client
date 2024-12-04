@@ -25,9 +25,11 @@ class BreweryClientTest {
 
     @Test
     void testSaveNewBeer() {
-        BeerDto dto = BeerDto.builder().beerName("New Beer")
+        BeerDto beerDto = BeerDto.builder()
+                .beerName("New Beer")
+                .beerStyle("Pale Ale")
                 .build();
-        URI uri = breweryClient.saveNewBeer(dto);
+        URI uri = breweryClient.saveNewBeer(beerDto);
         assertNotNull(uri);
 
         System.out.println(uri.toString());
@@ -35,7 +37,10 @@ class BreweryClientTest {
 
     @Test
     void testUpdateBeer() {
-        BeerDto beerDto = BeerDto.builder().beerName("Updated Beer").build();
+        BeerDto beerDto = BeerDto.builder()
+                .beerName("Updated Beer")
+                .beerStyle("Pale Ale")
+                .build();
         breweryClient.updateBeer(UUID.randomUUID(), beerDto);
     }
 
